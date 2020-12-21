@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+{% block title %}Add Post
+    {% endblock %}
+
+<h1>Add Post ...</h1>
+<div class="form-group">
+<form method="POST">
+    {% csrf_token %}
+<!--    Every field in form will be under a p tag-->
+    {{ form.as_p}}
+    <button class="btn btn-dark">Post</button>
+</form>
+    </div>
+{% else %}
+You are not allowed here
+{% endif %}
+
+
+
+{% endblock %}

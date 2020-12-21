@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% block title %}{{post.title_tag}}
+    {% endblock %}
+<h1>{{post.title}}</h1>
+<small>By:{{post.author}}
+    {% if user.is_authenticated %}
+        {% if  user.id == post.author.id %}
+                <a href="{% url 'update-post' post.pk %}">Edit</a>
+                <a href="{% url 'delete-post' post.pk %}">Delete</a></small>
+                {% endif %}
+
+        {% endif %}
+</small>
+<hr>
+<br>{{post.body|safe}}</br>
+
+<br/></br>
+<a href="{% url 'home'%}" class="btn btn-secondary">Back</a>
+<br/><br/>
+<hr>
+<br/>
+<div class="form-group">
+<form action="{% url 'like_post' post.pk %}" method="POST">
+    {% csrf_token %}
+   <button type="submit", name="post_id" ,value="{{ post.id }}", class="btn-btn-primary btn-sm">Like</button>
+    {{post.likes.count}}
+</form>
+</div>
+
+
+{% endblock %}
+

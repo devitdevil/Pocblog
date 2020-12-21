@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1> Post</h1>
+<ul>
+{% for post in object_list %}
+    <br><a style="color:grey;"href="{% url 'article-detail' post.pk %}">{{post.title}}</a>
+<!--    <a style="color:red;"href="{% url 'category' post.category %}">-->
+        {{post.author}}
+<!--    </a>-->
+    <br>{{post.category}}
+              {% if user.is_authenticated %}
+<!--                {% if  user.id == post.author.id %}-->
+<!--                <a href="{% url 'update-post' post.pk %}">Edit</a>-->
+<!--                <a href="{% url 'delete-post' post.pk %}">Delete</a></small>-->
+<!--                {% endif %}-->
+
+                {% endif %}
+    </br>
+{{post.body|slice:":200"|safe}}
+    </li>
+<br> </br>
+{% endfor%}
+</ul>
+{% if is_paginated %}
+  <nav aria-label="Page navigation conatiner"></nav>
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-dark mx-3">&laquo; PREV </a>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-dark mx-3"> NEXT &raquo;</a>
+
+    {% endif %}
+  </ul>
+  </nav>
+</div>
+{% endif %}
+
+{% endblock %}
